@@ -3,11 +3,8 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.Common
 {
     public class ObjectToListConverter<T> : CustomCreationConverter<List<T>> where T : new()
     {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
+using Veikkaus_app.Common;
 
 namespace Veikkaus_app.JsonObjects
 {
