@@ -69,12 +69,15 @@ namespace Veikkaus_app
         {
             matchName = new TextBlock();
             matchName.Text = match.GetMatchName();
+            matchName.HorizontalAlignment = HorizontalAlignment.Center;
 
             matchResult = new TextBlock();
             matchResult.Text = match.GetMatchResult();
+            matchResult.HorizontalAlignment = HorizontalAlignment.Center;
 
             matchDate = new TextBlock();
             matchDate.Text = match.GetMatchDate();
+            matchDate.HorizontalAlignment = HorizontalAlignment.Center;
         }
 
         private static void ApplyTextBlocksToContentGrid(Grid contentGrid, TextBlock matchName, TextBlock matchResult, TextBlock matchDate)
