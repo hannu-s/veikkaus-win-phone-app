@@ -1,6 +1,7 @@
 ﻿using System;
+using Veikkaus_app.JsonObjects;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.Common
 {
     public class CustomEventArgs : EventArgs
     {

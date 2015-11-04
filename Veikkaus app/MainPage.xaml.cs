@@ -6,6 +6,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Veikkaus_app.JsonObjects;
+using Veikkaus_app.Common;
 
 namespace Veikkaus_app
 {

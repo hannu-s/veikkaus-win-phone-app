@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.JsonObjects
 {
     [JsonObject]
     public class Team

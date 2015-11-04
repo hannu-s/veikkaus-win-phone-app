@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using Veikkaus_app.Common;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.JsonObjects
 {
     [JsonObject]
     public class Match

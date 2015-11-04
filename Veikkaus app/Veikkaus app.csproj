@@ -93,15 +93,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppHttpClient.cs" />
-    <Compile Include="CustomEventArgs.cs" />
-    <Compile Include="JsonMatchDeserializer.cs" />
+    <Compile Include="Common\AppHttpClient.cs" />
+    <Compile Include="Common\CustomEventArgs.cs" />
+    <Compile Include="Common\JsonMatchDeserializer.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Match.cs" />
-    <Compile Include="MatchData.cs" />
+    <Compile Include="JsonObjects\Match.cs" />
+    <Compile Include="JsonObjects\MatchData.cs" />
     <Compile Include="MatchDataWindow.xaml.cs">
       <DependentUpon>MatchDataWindow.xaml</DependentUpon>
     </Compile>
@@ -112,7 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Team.cs" />
+    <Compile Include="JsonObjects\Team.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

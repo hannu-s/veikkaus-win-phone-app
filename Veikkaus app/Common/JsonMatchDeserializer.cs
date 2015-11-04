@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Veikkaus_app.JsonObjects;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.Common
 {
     public class JsonMatchDeserializer
     {

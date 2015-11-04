@@ -2,6 +2,7 @@
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using System.Windows.Media.Imaging;
+using Veikkaus_app.Common;
 
 namespace Veikkaus_app
 {

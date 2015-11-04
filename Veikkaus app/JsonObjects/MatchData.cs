@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.JsonObjects
 {
     [JsonObject]
     public class MatchData

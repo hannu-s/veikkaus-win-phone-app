@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using AdvancedREI.Net.Http.Compression;
 using System.Net.Http;
 
-namespace Veikkaus_app
+namespace Veikkaus_app.Common
 {
     public class AppHttpClient
     {
