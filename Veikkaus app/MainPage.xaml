@@ -28,7 +28,17 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ItemsControl Name="MatchItemsControl">
+
+            <TextBlock Name="LoadingText" Style="{StaticResource PhoneTextExtraLargeStyle}" >Loading...</TextBlock>
+            <ItemsControl Name="MatchItemsControl" >
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer Padding="0, 0, 125, 0">
+                            <ItemsPresenter>
+                            </ItemsPresenter>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
                 <!--<Button Content="kebab"></Button>
                 <RichTextBox>
                     <Paragraph>

@@ -37,15 +37,14 @@ namespace Veikkaus_app
                 PopulateMatchItemsControl(matches);
 
             }));
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
         private void PopulateMatchItemsControl(List<Match> matches)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
+                SwapLoadingTextToMatchItemsControl();
+
                 matches.ForEach(match =>
                 {
                     Button btn = CreateItemsControlButton(match);
@@ -61,11 +60,17 @@ namespace Veikkaus_app
             }));
         }
 
+        private void SwapLoadingTextToMatchItemsControl()
+        {
+            LoadingText.Visibility = Visibility.Collapsed;
+            MatchItemsControl.Visibility = Visibility.Visible;
+        }
+
         private Button CreateItemsControlButton(Match match)
         {
             var btn = new Button();
             btn.Name = match.Id.ToString();
-            btn.Click += Btn_Click;
+            btn.Tap += Btn_Tap;
             return btn;
         }
 
@@ -107,8 +112,9 @@ namespace Veikkaus_app
             return contentGrid;
         }
 
-        private void Btn_Click(object sender, RoutedEventArgs e)
+        private void Btn_Tap(object sender, RoutedEventArgs e)
         {
+            
             Console.WriteLine("kek");
         }
 
