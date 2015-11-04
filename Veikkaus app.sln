@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veikkaus app", "Veikkaus app\Veikkaus app.csproj", "{7B842EE0-7857-47E9-9D8B-7268D126B1FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|ARM.Build.0 = Debug|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|ARM.Deploy.0 = Debug|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|x86.ActiveCfg = Debug|x86
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|x86.Build.0 = Debug|x86
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Debug|x86.Deploy.0 = Debug|x86
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|ARM.ActiveCfg = Release|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|ARM.Build.0 = Release|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|ARM.Deploy.0 = Release|ARM
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|x86.ActiveCfg = Release|x86
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|x86.Build.0 = Release|x86
+		{7B842EE0-7857-47E9-9D8B-7268D126B1FB}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
