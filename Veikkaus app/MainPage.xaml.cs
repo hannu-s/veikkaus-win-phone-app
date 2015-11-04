@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Veikkaus_app;
 using System.IO;
 using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace Veikkaus_app
 {
@@ -122,7 +123,9 @@ namespace Veikkaus_app
             var match = matches.Find(obj => obj.GetMatchId().Equals((sender as Button).Name));
             Task.Factory.StartNew(new Action(() =>
             {
-                while (true)
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
                 {
                     if (RaiseCustomEvent == null)
                         System.Threading.Thread.Sleep(10);
@@ -132,6 +135,7 @@ namespace Veikkaus_app
                         break;
                     }
                 }
+                stopwatch.Reset();
             }));
         }
 
