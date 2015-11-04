@@ -11,9 +11,9 @@ namespace Veikkaus_app
         public string Name { get; set; }
         [JsonProperty]
         public string FullName { get; set; }
-        [JsonObject]
+        [JsonProperty]
         public string Logo { get; set; }
-        [JsonObject]
+        [JsonProperty]
         public string LogoUrl { get; set; }
     }
 }

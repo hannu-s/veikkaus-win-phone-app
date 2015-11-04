@@ -11,6 +11,7 @@ using Veikkaus_app.Resources;
 using System.Threading.Tasks;
 using Veikkaus_app;
 using System.IO;
+using System.Windows.Documents;
 
 namespace Veikkaus_app
 {
@@ -33,10 +34,82 @@ namespace Veikkaus_app
 
                 Console.WriteLine(matches);
 
+                PopulateMatchItemsControl(matches);
+
             }));
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
+        }
+
+        private void PopulateMatchItemsControl(List<Match> matches)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                matches.ForEach(match =>
+                {
+                    Button btn = CreateItemsControlButton(match);
+                    Grid contentGrid = CreateButtonsContentGrid();
+                    TextBlock matchName, matchResult, matchDate;
+
+                    CreateMatchDataTextBlocks(match, out matchName, out matchResult, out matchDate);
+                    ApplyTextBlocksToContentGrid(contentGrid, matchName, matchResult, matchDate);
+
+                    btn.Content = contentGrid;
+                    MatchItemsControl.Items.Add(btn);
+                });
+            }));
+        }
+
+        private Button CreateItemsControlButton(Match match)
+        {
+            var btn = new Button();
+            btn.Name = match.Id.ToString();
+            btn.Click += Btn_Click;
+            return btn;
+        }
+
+        private static void CreateMatchDataTextBlocks(Match match, out TextBlock matchName, out TextBlock matchResult, out TextBlock matchDate)
+        {
+            matchName = new TextBlock();
+            matchName.Text = match.GetMatchName();
+
+            matchResult = new TextBlock();
+            matchResult.Text = match.GetMatchResult();
+
+            matchDate = new TextBlock();
+            matchDate.Text = match.GetMatchDate();
+        }
+
+        private static void ApplyTextBlocksToContentGrid(Grid contentGrid, TextBlock matchName, TextBlock matchResult, TextBlock matchDate)
+        {
+            Grid.SetRow(matchName, 0);
+            Grid.SetRow(matchResult, 1);
+            Grid.SetRow(matchDate, 2);
+
+            Grid.SetColumn(matchName, 0);
+            Grid.SetColumn(matchResult, 0);
+            Grid.SetColumn(matchDate, 0);
+
+            contentGrid.Children.Add(matchName);
+            contentGrid.Children.Add(matchResult);
+            contentGrid.Children.Add(matchDate);
+        }
+
+        private static Grid CreateButtonsContentGrid()
+        {
+            var contentGrid = new Grid();
+            contentGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            contentGrid.RowDefinitions.Add(new RowDefinition());
+            contentGrid.RowDefinitions.Add(new RowDefinition());
+            contentGrid.RowDefinitions.Add(new RowDefinition());
+            return contentGrid;
+        }
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("kek");
         }
 
 

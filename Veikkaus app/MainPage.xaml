@@ -29,11 +29,12 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ItemsControl Name="MatchItemsControl">
+                <!--<Button Content="kebab"></Button>
                 <RichTextBox>
                     <Paragraph>
                         <Hyperlink>Spurdo spärde</Hyperlink>
                     </Paragraph>
-                </RichTextBox>
+                </RichTextBox>-->
             </ItemsControl>
         </Grid>
 

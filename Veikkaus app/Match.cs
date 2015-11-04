@@ -19,5 +19,39 @@ namespace Veikkaus_app
         [JsonConverter(typeof(ObjectToListConverter<Team>))]
         public List<Team> AwayTeam { get; set; }
 
+        [JsonProperty]
+        public string MatchDate;
+
+        private string GetTeamName(List<Team> team)
+        {
+            if (team != null || team.Count != 1)
+                return team[0].Name;
+            return string.Empty;
+        }
+
+        public string GetAwayTeamName()
+        {
+            return GetTeamName(AwayTeam);
+        }
+
+        public string GetHomeTeamName()
+        {
+            return GetTeamName(HomeTeam);
+        }
+
+        public string GetMatchName()
+        {
+            return string.Format("{0} vs {1}", GetHomeTeamName(), GetAwayTeamName());
+        }
+
+        public string GetMatchResult()
+        {
+            return string.Format("{0} vs {1}", HomeGoals, AwayGoals);
+        }
+
+        public string GetMatchDate()
+        {
+            return MatchDate;
+        }
     }
 }
