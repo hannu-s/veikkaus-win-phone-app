@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Veikkaus_app.Resources;
 using System.Threading.Tasks;
-using Veikkaus_app;
-using System.IO;
-using System.Windows.Documents;
 using System.Diagnostics;
 
 namespace Veikkaus_app
@@ -21,7 +14,6 @@ namespace Veikkaus_app
         public static event EventHandler<CustomEventArgs> RaiseCustomEvent;
         private List<Match> matches;
 
-        // Constructor
         public MainPage()
         {
             InitializeComponent();
@@ -121,6 +113,7 @@ namespace Veikkaus_app
             NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
 
             var match = matches.Find(obj => obj.GetMatchId().Equals((sender as Button).Name));
+
             Task.Factory.StartNew(new Action(() =>
             {
                 var stopwatch = new Stopwatch();
@@ -138,22 +131,5 @@ namespace Veikkaus_app
                 stopwatch.Reset();
             }));
         }
-
-
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

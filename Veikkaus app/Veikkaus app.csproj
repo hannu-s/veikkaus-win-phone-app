@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppHttpClient.cs" />
+    <Compile Include="CustomEventArgs.cs" />
     <Compile Include="JsonMatchDeserializer.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
