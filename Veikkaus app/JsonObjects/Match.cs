@@ -85,10 +85,13 @@ namespace Veikkaus_app.JsonObjects
             return new Uri(GetLogoUrl(AwayTeam));
         }
 
-        public MatchData MatchData { get; private set; }
+        private MatchData MatchData { get; set; }
 
         public async Task<MatchData> GetMatchDataAsync()
         {
+            if (MatchData != null)
+                return MatchData;
+
             var client = new AppHttpClient();
 
             var dataString = await client.GetMatchDataAsync(GetMatchId());
