@@ -40,16 +40,16 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Image Grid.Row="0" Grid.Column="0" Name="HomeLogo" />
-                <Image Grid.Row="0" Grid.Column="1" Name="AwayLogo" />
+                <Image Grid.Row="0" Grid.Column="0" Name="HomeLogo" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Image Grid.Row="0" Grid.Column="1" Name="AwayLogo" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Name="HomeTeamName" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Name="AwayTeamName" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Name="HomeTeamName" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Name="AwayTeamName" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Name="HomeGoals" />
-                <TextBlock Grid.Row="2" Grid.Column="1" Name="AwayGoals" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Name="HomeGoals" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Name="AwayGoals" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                <TextBlock Grid.Row="3" Name="MatchDate" />
+                <TextBlock Grid.Row="3" Name="MatchDate" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
             <Button Grid.Row="1" Name="BackButton" Tap="BackButton_Tap" Content="{Binding Path=LocalizedResources.BackButtonText, Source={StaticResource LocalizedStrings}}" />
         </Grid>
