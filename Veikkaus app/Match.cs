@@ -49,7 +49,7 @@ namespace Veikkaus_app
 
         public string GetMatchResult()
         {
-            return string.Format("{0} vs {1}", HomeGoals, AwayGoals);
+            return string.Format("{0} - {1}", HomeGoals, AwayGoals);
         }
 
         public string GetMatchDate()
