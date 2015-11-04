@@ -17,7 +17,7 @@ namespace Veikkaus_app
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                var match = e.MatchData.Match[0];
+                var match = e.MatchData.GetMatch();
 
                 HomeLogo.Source = new BitmapImage(match.GetHomeTeamLogoUri());
                 AwayLogo.Source = new BitmapImage(match.GetAwayTeamLogoUri());

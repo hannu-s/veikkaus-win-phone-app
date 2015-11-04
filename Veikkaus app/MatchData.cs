@@ -11,5 +11,10 @@ namespace Veikkaus_app
         [JsonProperty]
         [JsonConverter(typeof(ObjectToArrayConverter<Match>))]
         public List<Match> Match { get; set; }
+
+        public Match GetMatch()
+        {
+            return (Match != null && Match.Count == 1) ? Match[0] : null;
+        }
     }
 }
