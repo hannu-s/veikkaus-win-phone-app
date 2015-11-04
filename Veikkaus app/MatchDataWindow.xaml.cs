@@ -17,16 +17,18 @@ namespace Veikkaus_app
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                HomeLogo.Source = new BitmapImage(e.Match.GetHomeTeamLogoUri());
-                AwayLogo.Source = new BitmapImage(e.Match.GetAwayTeamLogoUri());
+                var match = e.MatchData.Match[0];
 
-                HomeTeamName.Text = e.Match.GetHomeTeamName();
-                AwayTeamName.Text = e.Match.GetAwayTeamName();
+                HomeLogo.Source = new BitmapImage(match.GetHomeTeamLogoUri());
+                AwayLogo.Source = new BitmapImage(match.GetAwayTeamLogoUri());
 
-                HomeGoals.Text = e.Match.HomeGoals.ToString();
-                AwayGoals.Text = e.Match.AwayGoals.ToString();
+                HomeTeamName.Text = match.GetHomeTeamName();
+                AwayTeamName.Text = match.GetAwayTeamName();
 
-                MatchDate.Text = e.Match.GetMatchDate();
+                HomeGoals.Text = match.HomeGoals.ToString();
+                AwayGoals.Text = match.AwayGoals.ToString();
+
+                MatchDate.Text = match.GetMatchDate();
             }));
             
         }

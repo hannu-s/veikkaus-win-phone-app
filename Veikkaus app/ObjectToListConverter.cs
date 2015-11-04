@@ -27,4 +27,32 @@ namespace Veikkaus_app
             return new List<T>();
         }
     }
+
+    public class ObjectToArrayConverter<T> : CustomCreationConverter<List<T>> where T : new()
+    {
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            List<T> target = new List<T>();
+
+            try
+            {
+                var jArray = JArray.Load(reader);
+                serializer.Populate(jArray.CreateReader(), target);
+            }
+            catch (JsonReaderException)
+            {
+                var jObject = JObject.Load(reader);
+                var t = new T();
+                serializer.Populate(jObject.CreateReader(), t);
+                target.Add(t);
+            }
+
+            return target;
+        }
+
+        public override List<T> Create(Type objectType)
+        {
+            return new List<T>();
+        }
+    }
 }

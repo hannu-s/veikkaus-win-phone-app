@@ -143,4 +143,7 @@
   <data name="MatchListingTitle" xml:space="preserve">
     <value>Matches</value>
   </data>
+  <data name="UriVeikkausliigaMatches" xml:space="preserve">
+    <value>http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches</value>
+  </data>
 </root>

@@ -101,6 +101,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Match.cs" />
+    <Compile Include="MatchData.cs" />
     <Compile Include="MatchDataWindow.xaml.cs">
       <DependentUpon>MatchDataWindow.xaml</DependentUpon>
     </Compile>

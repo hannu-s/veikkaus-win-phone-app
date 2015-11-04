@@ -131,5 +131,14 @@ namespace Veikkaus_app.Resources {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches.
+        /// </summary>
+        public static string UriVeikkausliigaMatches {
+            get {
+                return ResourceManager.GetString("UriVeikkausliigaMatches", resourceCulture);
+            }
+        }
     }
 }

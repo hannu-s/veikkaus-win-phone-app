@@ -4,11 +4,11 @@ namespace Veikkaus_app
 {
     public class CustomEventArgs : EventArgs
     {
-        public CustomEventArgs(Match match)
+        public CustomEventArgs(MatchData matchData)
         {
-            Match = match;
+            MatchData = matchData;
         }
 
-        public Match Match { get; private set; }
+        public MatchData MatchData { get; private set; }
     }
 }

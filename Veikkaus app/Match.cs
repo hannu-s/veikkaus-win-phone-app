@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Veikkaus_app
 {
@@ -26,7 +27,7 @@ namespace Veikkaus_app
 
         private string GetTeamName(List<Team> team)
         {
-            if (team != null || team.Count != 1)
+            if (team != null && team.Count == 1)
                 return team[0].Name;
             return string.Empty;
         }
@@ -53,6 +54,9 @@ namespace Veikkaus_app
 
         public string GetMatchDate()
         {
+            if (MatchDate.Contains("/"))
+                return MatchDate;
+
             var dateStr = MatchDate.Replace('T', ' ');
             dateStr = dateStr.Replace('Z', ' ');
             return DateTime.ParseExact(dateStr, "yyyy-MM-dd HH:mm:ss ", CultureInfo.CurrentCulture).ToShortDateString();
@@ -65,7 +69,7 @@ namespace Veikkaus_app
 
         private string GetLogoUrl(List<Team> team)
         {
-            if (team != null || team.Count != 1)
+            if (team != null && team.Count == 1)
                 return team[0].LogoUrl;
             return string.Empty;
         }
@@ -79,5 +83,19 @@ namespace Veikkaus_app
         {
             return new Uri(GetLogoUrl(AwayTeam));
         }
+
+        public MatchData MatchData { get; private set; }
+
+        public async Task<MatchData> GetMatchDataAsync()
+        {
+            var client = new AppHttpClient();
+
+            var dataString = await client.GetMatchDataAsync(GetMatchId());
+            MatchData = JsonMatchDeserializer.GetMatchDataFromJsonString(dataString);
+
+            return MatchData;
+        }
+
+
     }
 }

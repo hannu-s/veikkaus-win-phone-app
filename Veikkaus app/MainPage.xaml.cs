@@ -23,15 +23,10 @@ namespace Veikkaus_app
             Task.Factory.StartNew(new Action(() =>
             {
                 var fetchMatchesTask = client.GetMatchesAsync();
-
                 fetchMatchesTask.Wait();
 
                 matches = JsonMatchDeserializer.GetMatchListFromJsonString(fetchMatchesTask.Result);
-
-                Console.WriteLine(matches);
-
                 PopulateMatchItemsControl(matches);
-
             }));
         }
 
@@ -116,6 +111,10 @@ namespace Veikkaus_app
 
             Task.Factory.StartNew(new Action(() =>
             {
+                var matchDataTask = match.GetMatchDataAsync();
+                matchDataTask.Wait();
+
+
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
                 while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
@@ -124,7 +123,7 @@ namespace Veikkaus_app
                         System.Threading.Thread.Sleep(10);
                     else
                     {
-                        RaiseCustomEvent(this, new CustomEventArgs(match));
+                        RaiseCustomEvent(this, new CustomEventArgs(matchDataTask.Result));
                         break;
                     }
                 }

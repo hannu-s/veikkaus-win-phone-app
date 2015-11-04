@@ -21,13 +21,13 @@ namespace Veikkaus_app
 
         public async Task<string> GetMatchesAsync()
         {
-            var uri = new Uri("http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches");
+            var uri = new Uri(Resources.AppResources.UriVeikkausliigaMatches);
             return await FetchGzipCompressedHttpContent(uri);
         }
 
-        public async Task<string> GetMatchDataAsync()
+        public async Task<string> GetMatchDataAsync(string id)
         {
-            var uri = new Uri("http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches");
+            var uri = new Uri(Resources.AppResources.UriVeikkausliigaMatches + "/" + id);
             return await FetchGzipCompressedHttpContent(uri);
         }
     }

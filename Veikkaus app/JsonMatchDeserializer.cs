@@ -22,5 +22,19 @@ namespace Veikkaus_app
             }
             return result;
         }
+
+        public static MatchData GetMatchDataFromJsonString(string jsonData)
+        {
+            var result = new MatchData();
+            try
+            {
+                result = JsonConvert.DeserializeObject<MatchData>(jsonData, new ObjectToArrayConverter<List<Match>>());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return result;
+        }
     }
 }
