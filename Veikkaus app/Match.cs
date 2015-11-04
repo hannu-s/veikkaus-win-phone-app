@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Veikkaus_app
 {
@@ -51,7 +53,31 @@ namespace Veikkaus_app
 
         public string GetMatchDate()
         {
-            return MatchDate;
+            var dateStr = MatchDate.Replace('T', ' ');
+            dateStr = dateStr.Replace('Z', ' ');
+            return DateTime.ParseExact(dateStr, "yyyy-MM-dd HH:mm:ss ", CultureInfo.CurrentCulture).ToShortDateString();
+        }
+
+        public string GetMatchId()
+        {
+            return Id.ToString();
+        }
+
+        private string GetLogoUrl(List<Team> team)
+        {
+            if (team != null || team.Count != 1)
+                return team[0].LogoUrl;
+            return string.Empty;
+        }
+
+        public Uri GetHomeTeamLogoUri()
+        {
+            return new Uri(GetLogoUrl(HomeTeam));
+        }
+
+        public Uri GetAwayTeamLogoUri()
+        {
+            return new Uri(GetLogoUrl(AwayTeam));
         }
     }
 }

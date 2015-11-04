@@ -17,6 +17,9 @@ namespace Veikkaus_app
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        public static event EventHandler<CustomEventArgs> RaiseCustomEvent;
+        private List<Match> matches;
+
         // Constructor
         public MainPage()
         {
@@ -30,7 +33,7 @@ namespace Veikkaus_app
 
                 fetchMatchesTask.Wait();
 
-                var matches = JsonMatchDeserializer.GetMatchListFromJsonString(fetchMatchesTask.Result);
+                matches = JsonMatchDeserializer.GetMatchListFromJsonString(fetchMatchesTask.Result);
 
                 Console.WriteLine(matches);
 
@@ -69,7 +72,7 @@ namespace Veikkaus_app
         private Button CreateItemsControlButton(Match match)
         {
             var btn = new Button();
-            btn.Name = match.Id.ToString();
+            btn.Name = match.GetMatchId();
             btn.Tap += Btn_Tap;
             return btn;
         }
@@ -114,8 +117,22 @@ namespace Veikkaus_app
 
         private void Btn_Tap(object sender, RoutedEventArgs e)
         {
-            
-            Console.WriteLine("kek");
+            NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
+
+            var match = matches.Find(obj => obj.GetMatchId().Equals((sender as Button).Name));
+            Task.Factory.StartNew(new Action(() =>
+            {
+                while (true)
+                {
+                    if (RaiseCustomEvent == null)
+                        System.Threading.Thread.Sleep(10);
+                    else
+                    {
+                        RaiseCustomEvent(this, new CustomEventArgs(match));
+                        break;
+                    }
+                }
+            }));
         }
 
 
