@@ -26,7 +26,7 @@ namespace Veikkaus_app.JsonObjects
         public List<Team> AwayTeam { get; set; }
 
         [JsonProperty]
-        public string MatchDate;
+        public string MatchDate { get; set; }
 
         private string GetTeamName(List<Team> team)
         {
@@ -100,6 +100,19 @@ namespace Veikkaus_app.JsonObjects
             return MatchData;
         }
 
+        public string MatchTitle
+        {
+            get { return string.Format("{0} vs {1}", GetHomeTeamName(), GetAwayTeamName()); }
+        }
 
+        public string MatchResult
+        {
+            get { return string.Format("{0} - {1}", HomeGoals, AwayGoals); }
+        }
+
+        public string MatchShortDate
+        {
+            get { return GetMatchDate(); }
+        }
     }
 }

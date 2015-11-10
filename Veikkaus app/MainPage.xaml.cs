@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Veikkaus_app.JsonObjects;
 using Veikkaus_app.Common;
 using Microsoft.Phone.Shell;
+using System.Collections.ObjectModel;
 
 namespace Veikkaus_app
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private List<Match> matches;
-
+        private ObservableCollection<Match> matches;
+        
         public MainPage()
         {
             InitializeComponent();
@@ -25,106 +24,56 @@ namespace Veikkaus_app
             {
                 var fetchMatchesTask = client.GetMatchesAsync();
                 fetchMatchesTask.Wait();
-
                 matches = JsonMatchDeserializer.GetMatchListFromJsonString(fetchMatchesTask.Result);
                 PopulateMatchItemsControl(matches);
             }));
         }
 
-        private void PopulateMatchItemsControl(List<Match> matches)
+        private void PopulateMatchItemsControl(ObservableCollection<Match> matches)
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
+                IC1.ItemsSource = matches;
                 SwapLoadingTextToMatchItemsControl();
-
-                matches.ForEach(match =>
-                {
-                    Button btn = CreateItemsControlButton(match);
-                    Grid contentGrid = CreateButtonsContentGrid();
-                    TextBlock matchName, matchResult, matchDate;
-
-                    CreateMatchDataTextBlocks(match, out matchName, out matchResult, out matchDate);
-                    ApplyTextBlocksToContentGrid(contentGrid, matchName, matchResult, matchDate);
-
-                    btn.Content = contentGrid;
-                    MatchItemsControl.Items.Add(btn);
-                });
             }));
         }
 
         private void SwapLoadingTextToMatchItemsControl()
         {
             LoadingText.Visibility = Visibility.Collapsed;
-            MatchItemsControl.Visibility = Visibility.Visible;
+            IC1.Visibility = Visibility.Visible;
         }
 
         private void SwapItemsControlToLoadingText()
         {
             LoadingText.Visibility = Visibility.Visible;
-            MatchItemsControl.Visibility = Visibility.Collapsed;
+            IC1.Visibility = Visibility.Collapsed;
         }
 
-        private Button CreateItemsControlButton(Match match)
+        private void Button_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            var btn = new Button();
-            btn.Name = match.GetMatchId();
-            btn.Tap += Btn_Tap;
-            return btn;
-        }
-
-        private static void CreateMatchDataTextBlocks(Match match, out TextBlock matchName, out TextBlock matchResult, out TextBlock matchDate)
-        {
-            matchName = new TextBlock();
-            matchName.Text = match.GetMatchName();
-            matchName.HorizontalAlignment = HorizontalAlignment.Center;
-
-            matchResult = new TextBlock();
-            matchResult.Text = match.GetMatchResult();
-            matchResult.HorizontalAlignment = HorizontalAlignment.Center;
-
-            matchDate = new TextBlock();
-            matchDate.Text = match.GetMatchDate();
-            matchDate.HorizontalAlignment = HorizontalAlignment.Center;
-        }
-
-        private static void ApplyTextBlocksToContentGrid(Grid contentGrid, TextBlock matchName, TextBlock matchResult, TextBlock matchDate)
-        {
-            Grid.SetRow(matchName, 0);
-            Grid.SetRow(matchResult, 1);
-            Grid.SetRow(matchDate, 2);
-
-            Grid.SetColumn(matchName, 0);
-            Grid.SetColumn(matchResult, 0);
-            Grid.SetColumn(matchDate, 0);
-
-            contentGrid.Children.Add(matchName);
-            contentGrid.Children.Add(matchResult);
-            contentGrid.Children.Add(matchDate);
-        }
-
-        private static Grid CreateButtonsContentGrid()
-        {
-            var contentGrid = new Grid();
-            contentGrid.ColumnDefinitions.Add(new ColumnDefinition());
-
-            contentGrid.RowDefinitions.Add(new RowDefinition());
-            contentGrid.RowDefinitions.Add(new RowDefinition());
-            contentGrid.RowDefinitions.Add(new RowDefinition());
-            return contentGrid;
-        }
-
-        private void Btn_Tap(object sender, RoutedEventArgs e)
-        {
-            SwapItemsControlToLoadingText();
-            var match = matches.Find(obj => obj.GetMatchId().Equals((sender as Button).Name));
+            Match match = null;
             Task<MatchData> matchDataTask = null;
+            var btnTag = (sender as Button).Tag.ToString();
+
+            Dispatcher.BeginInvoke(new Action(() => SwapItemsControlToLoadingText()));
+
+            foreach (var iter in matches)
+            {
+                var matchId = iter.GetMatchId();
+                if (matchId.Equals(btnTag))
+                {
+                    match = iter;
+                    break;
+                }
+            }
 
             Task.Factory.StartNew(new Action(() =>
             {
                 matchDataTask = match.GetMatchDataAsync();
                 matchDataTask.Wait();
 
-            })).ContinueWith(task => 
+            })).ContinueWith(task =>
             {
                 Dispatcher.BeginInvoke(new Action(() =>
                 {

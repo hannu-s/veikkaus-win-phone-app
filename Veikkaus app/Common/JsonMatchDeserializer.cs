@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Veikkaus_app.JsonObjects;
 
 namespace Veikkaus_app.Common
 {
     public class JsonMatchDeserializer
     {
-        public static List<Match> GetMatchListFromJsonString(string jsonData)
+        public static ObservableCollection<Match> GetMatchListFromJsonString(string jsonData)
         {
             var result = new List<Match>();
             try
@@ -18,7 +19,7 @@ namespace Veikkaus_app.Common
             {
                 Console.WriteLine(ex);
             }
-            return result;
+            return new ObservableCollection<Match>(result);
         }
 
         public static MatchData GetMatchDataFromJsonString(string jsonData)
