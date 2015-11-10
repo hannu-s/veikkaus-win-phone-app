@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Veikkaus_app.JsonObjects;
 using Veikkaus_app.Common;
+using Microsoft.Phone.Shell;
 
 namespace Veikkaus_app
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        public static event EventHandler<CustomEventArgs> RaiseCustomEvent;
         private List<Match> matches;
 
         public MainPage()
         {
             InitializeComponent();
-
             var client = new AppHttpClient();
 
             Task.Factory.StartNew(new Action(() =>
@@ -57,6 +56,12 @@ namespace Veikkaus_app
         {
             LoadingText.Visibility = Visibility.Collapsed;
             MatchItemsControl.Visibility = Visibility.Visible;
+        }
+
+        private void SwapItemsControlToLoadingText()
+        {
+            LoadingText.Visibility = Visibility.Visible;
+            MatchItemsControl.Visibility = Visibility.Collapsed;
         }
 
         private Button CreateItemsControlButton(Match match)
@@ -110,30 +115,24 @@ namespace Veikkaus_app
 
         private void Btn_Tap(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
-
+            SwapItemsControlToLoadingText();
             var match = matches.Find(obj => obj.GetMatchId().Equals((sender as Button).Name));
+            Task<MatchData> matchDataTask = null;
 
             Task.Factory.StartNew(new Action(() =>
             {
-                var matchDataTask = match.GetMatchDataAsync();
+                matchDataTask = match.GetMatchDataAsync();
                 matchDataTask.Wait();
 
-
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
+            })).ContinueWith(task => 
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    if (RaiseCustomEvent == null)
-                        System.Threading.Thread.Sleep(10);
-                    else
-                    {
-                        RaiseCustomEvent(this, new CustomEventArgs(matchDataTask.Result));
-                        break;
-                    }
-                }
-                stopwatch.Reset();
-            }));
+                    SwapLoadingTextToMatchItemsControl();
+                    PhoneApplicationService.Current.State["MatchData"] = matchDataTask.Result;
+                    NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
+                }));
+            });
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Veikkaus_app.JsonObjects
     [JsonObject]
     public class Match
     {
+        private MatchData MatchData { get; set; }
+
         [JsonProperty]
         public int Id { get; set; }
         [JsonProperty]
@@ -84,8 +86,6 @@ namespace Veikkaus_app.JsonObjects
         {
             return new Uri(GetLogoUrl(AwayTeam));
         }
-
-        private MatchData MatchData { get; set; }
 
         public async Task<MatchData> GetMatchDataAsync()
         {

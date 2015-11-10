@@ -3,6 +3,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using System.Windows.Media.Imaging;
 using Veikkaus_app.Common;
+using Veikkaus_app.JsonObjects;
+using Microsoft.Phone.Shell;
 
 namespace Veikkaus_app
 {
@@ -11,14 +13,16 @@ namespace Veikkaus_app
         public MatchDataWindow()
         {
             InitializeComponent();
-            MainPage.RaiseCustomEvent += new EventHandler<CustomEventArgs>(MainPage_RaiseCustomEvent);
+
+            PopulateMainPage();
         }
 
-        private void MainPage_RaiseCustomEvent(object sender, CustomEventArgs e)
+        private void PopulateMainPage()
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                var match = e.MatchData.GetMatch();
+                var matchDataObj = PhoneApplicationService.Current.State["MatchData"] as MatchData;
+                var match = matchDataObj.GetMatch();
 
                 HomeLogo.Source = new BitmapImage(match.GetHomeTeamLogoUri());
                 AwayLogo.Source = new BitmapImage(match.GetAwayTeamLogoUri());
@@ -31,7 +35,6 @@ namespace Veikkaus_app
 
                 MatchDate.Text = match.GetMatchDate();
             }));
-            
         }
 
         private void BackButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
