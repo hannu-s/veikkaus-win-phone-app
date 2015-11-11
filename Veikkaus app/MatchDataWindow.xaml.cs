@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using Veikkaus_app.Common;
 using Veikkaus_app.JsonObjects;
 using Microsoft.Phone.Shell;
+using System.Threading.Tasks;
 
 namespace Veikkaus_app
 {
@@ -13,16 +14,34 @@ namespace Veikkaus_app
         public MatchDataWindow()
         {
             InitializeComponent();
-
             PopulateMainPage();
         }
 
         private void PopulateMainPage()
         {
+            var client = new AppHttpClient();
+            var matchId = PhoneApplicationService.Current.State["MatchId"].ToString();
+
+            Task.Factory.StartNew(new Action(() =>
+            {
+                var currentMatchData = GetCurrentMatchData(client, matchId);
+                UpdatePageUI(currentMatchData);
+            }));
+        }
+
+        private static MatchData GetCurrentMatchData(AppHttpClient client, string matchId)
+        {
+            var fetchMatchDataTask = client.GetMatchDataAsync(matchId);
+            fetchMatchDataTask.Wait();
+            var currentMatchData = JsonMatchDeserializer.GetMatchDataFromJsonString(fetchMatchDataTask.Result);
+            return currentMatchData;
+        }
+
+        private void UpdatePageUI(MatchData currentMatchData)
+        {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                var matchDataObj = PhoneApplicationService.Current.State["MatchData"] as MatchData;
-                var match = matchDataObj.GetMatch();
+                var match = currentMatchData.GetMatch();
 
                 HomeLogo.Source = new BitmapImage(match.GetHomeTeamLogoUri());
                 AwayLogo.Source = new BitmapImage(match.GetAwayTeamLogoUri());

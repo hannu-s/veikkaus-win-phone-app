@@ -53,9 +53,7 @@ namespace Veikkaus_app
         private void Button_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             Match match = null;
-            Task<MatchData> matchDataTask = null;
             var btnTag = (sender as Button).Tag.ToString();
-
             Dispatcher.BeginInvoke(new Action(() => SwapItemsControlToLoadingText()));
 
             foreach (var iter in matches)
@@ -68,20 +66,23 @@ namespace Veikkaus_app
                 }
             }
 
-            Task.Factory.StartNew(new Action(() =>
-            {
-                matchDataTask = match.GetMatchDataAsync();
-                matchDataTask.Wait();
+            PhoneApplicationService.Current.State["MatchId"] = match.Id;
+            NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
 
-            })).ContinueWith(task =>
-            {
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    SwapLoadingTextToMatchItemsControl();
-                    PhoneApplicationService.Current.State["MatchData"] = matchDataTask.Result;
-                    NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
-                }));
-            });
+            //Task.Factory.StartNew(new Action(() =>
+            //{
+            //    matchDataTask = match.GetMatchDataAsync();
+            //    matchDataTask.Wait();
+
+            //})).ContinueWith(task =>
+            //{
+            //    Dispatcher.BeginInvoke(new Action(() =>
+            //    {
+            //        SwapLoadingTextToMatchItemsControl();
+            //        PhoneApplicationService.Current.State["MatchData"] = matchDataTask.Result;
+            //        NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
+            //    }));
+            //});
         }
     }
 }
