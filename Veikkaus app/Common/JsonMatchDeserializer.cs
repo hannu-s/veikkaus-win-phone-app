@@ -8,7 +8,7 @@ namespace Veikkaus_app.Common
 {
     public class JsonMatchDeserializer
     {
-        public static ObservableCollection<Match> GetMatchListFromJsonString(string jsonData)
+        public static List<Match> GetMatchListFromJsonString(string jsonData)
         {
             var result = new List<Match>();
             try
@@ -19,7 +19,12 @@ namespace Veikkaus_app.Common
             {
                 Console.WriteLine(ex);
             }
-            return new ObservableCollection<Match>(result);
+            return result;
+        }
+
+        public static ObservableCollection<Match> GetMatchObservableCollectionFromJsonString(string jsonData)
+        {
+            return new ObservableCollection<Match>(GetMatchListFromJsonString(jsonData));
         }
 
         public static MatchData GetMatchDataFromJsonString(string jsonData)

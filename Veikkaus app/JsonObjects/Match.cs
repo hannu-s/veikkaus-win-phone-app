@@ -28,6 +28,21 @@ namespace Veikkaus_app.JsonObjects
         [JsonProperty]
         public string MatchDate { get; set; }
 
+        public string MatchTitle
+        {
+            get { return string.Format("{0} vs {1}", GetHomeTeamName(), GetAwayTeamName()); }
+        }
+
+        public string MatchResult
+        {
+            get { return string.Format("{0} - {1}", HomeGoals, AwayGoals); }
+        }
+
+        public string MatchShortDate
+        {
+            get { return GetMatchDate(); }
+        }
+
         private string GetTeamName(List<Team> team)
         {
             if (team != null && team.Count == 1)
@@ -98,21 +113,6 @@ namespace Veikkaus_app.JsonObjects
             MatchData = JsonMatchDeserializer.GetMatchDataFromJsonString(dataString);
 
             return MatchData;
-        }
-
-        public string MatchTitle
-        {
-            get { return string.Format("{0} vs {1}", GetHomeTeamName(), GetAwayTeamName()); }
-        }
-
-        public string MatchResult
-        {
-            get { return string.Format("{0} - {1}", HomeGoals, AwayGoals); }
-        }
-
-        public string MatchShortDate
-        {
-            get { return GetMatchDate(); }
         }
     }
 }

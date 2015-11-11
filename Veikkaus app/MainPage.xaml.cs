@@ -14,7 +14,8 @@ namespace Veikkaus_app
     public partial class MainPage : PhoneApplicationPage
     {
         private ObservableCollection<Match> matches;
-        
+        private bool hasLoadedMatches { get { return matches != null; } }
+
         public MainPage()
         {
             InitializeComponent();
@@ -24,9 +25,16 @@ namespace Veikkaus_app
             {
                 var fetchMatchesTask = client.GetMatchesAsync();
                 fetchMatchesTask.Wait();
-                matches = JsonMatchDeserializer.GetMatchListFromJsonString(fetchMatchesTask.Result);
+                matches = JsonMatchDeserializer.GetMatchObservableCollectionFromJsonString(fetchMatchesTask.Result);
                 PopulateMatchItemsControl(matches);
             }));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (hasLoadedMatches)
+                Dispatcher.BeginInvoke(new Action(() => SwapLoadingTextToMatchItemsControl()));
         }
 
         private void PopulateMatchItemsControl(ObservableCollection<Match> matches)
@@ -68,21 +76,6 @@ namespace Veikkaus_app
 
             PhoneApplicationService.Current.State["MatchId"] = match.Id;
             NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
-
-            //Task.Factory.StartNew(new Action(() =>
-            //{
-            //    matchDataTask = match.GetMatchDataAsync();
-            //    matchDataTask.Wait();
-
-            //})).ContinueWith(task =>
-            //{
-            //    Dispatcher.BeginInvoke(new Action(() =>
-            //    {
-            //        SwapLoadingTextToMatchItemsControl();
-            //        PhoneApplicationService.Current.State["MatchData"] = matchDataTask.Result;
-            //        NavigationService.Navigate(new Uri("/MatchDataWindow.xaml", UriKind.Relative));
-            //    }));
-            //});
         }
     }
 }
